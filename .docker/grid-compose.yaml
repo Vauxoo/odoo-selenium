@@ -1,0 +1,17 @@
+name: grid-osut
+services:
+  odoo:
+    image: odoo:16
+    depends_on:
+      - db
+      - grid
+    environment:
+      SELENIUM_GRID_URL=grid
+    command: ["odoo", "-d", "selenium", "-i", "test_selenium", "--test-tags", "/test_selenium", "--workers=0", "--stop-after-init"]
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+  grid:
+    image: selenium/standalone-chrome:latest

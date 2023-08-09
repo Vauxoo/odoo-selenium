@@ -1,0 +1,33 @@
+name: QA
+on:
+  pull_request_target:
+    branches:
+      - "main"
+  push:
+    branches:
+      - "main"
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pre-commit
+            ~/.cache/pip
+          key: ${{runner.os}}-pre-commit
+      - name: Install pre-commit
+        run: pip install --upgrade pre-commit
+      - name: Run pre-commit
+        run: pre-commit run --all-files
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build container
+        run: docker compose -f .docker/chrome-compose.yaml build
+      - name: Pull images
+        run: docker compose -f .docker/chrome-compose.yaml pull
+      - name: Run embedded Selenium tests
+        run: docker compose -f .docker/chrome-compose.yaml up --abort-on-container-exit

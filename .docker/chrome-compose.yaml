@@ -1,0 +1,14 @@
+name: chrome-osut
+services:
+  odoo:
+    build:
+      context: ..
+      dockerfile: .docker/Dockerfile
+    depends_on:
+      - db
+    command: ["odoo", "-d", "selenium", "-i", "test_selenium", "--test-tags", "/test_selenium", "--workers=0", "--stop-after-init"]
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo

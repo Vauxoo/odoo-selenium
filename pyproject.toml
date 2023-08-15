@@ -1,6 +1,6 @@
 [project]
 name = "osut"
-requires-python = ">=3.8.0"
+requires-python = ">=3.7.0"
 dynamic = ["version", "description"]
 dependencies = [
     "selenium >= 4.11"

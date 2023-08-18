@@ -23,11 +23,15 @@ jobs:
         run: pre-commit run --all-files
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        odoo: [14, 15, 16]
     steps:
       - uses: actions/checkout@v3
       - name: Build container
-        run: docker compose -f .docker/chrome-compose.yaml build
-      - name: Pull images
-        run: docker compose -f .docker/chrome-compose.yaml pull
+        run: ODOO_VERSION=${{ matrix.odoo }} docker compose -f .docker/chrome-compose.yaml build
+      - name: Pull supporting containers
+        run: docker compose -f .docker/chrome-compose.yaml pull db
       - name: Run embedded Selenium tests
-        run: docker compose -f .docker/chrome-compose.yaml up --abort-on-container-exit
+        run: ODOO_VERSION=${{ matrix.odoo }} docker compose -f .docker/chrome-compose.yaml up --abort-on-container-exit --force-recreate

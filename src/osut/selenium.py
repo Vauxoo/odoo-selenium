@@ -1,13 +1,17 @@
 """Code to be used by testing suites"""
+from __future__ import annotations
+
+import logging
 from os import environ
 from resource import RLIMIT_AS, setrlimit
-from typing import Dict, Union
 
 from selenium.webdriver import Chrome, ChromeOptions, Remote
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
+
+_logger = logging.getLogger(__name__)
 
 
 class SeleniumMixin:
@@ -41,23 +45,28 @@ class SeleniumMixin:
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.driver: Union[WebDriver, None] = None
-        self.wait: Union[WebDriverWait, None] = None
-        self._chrome_flags: Dict[str, str] = self._default_chrome_flags.copy()
+        self.driver: WebDriver | None = None
+        self.wait: WebDriverWait | None = None
+        self._chrome_flags: dict[str, str] = self._default_chrome_flags.copy()
 
-    def start_selenium(self, flags: Union[Dict[str, str], None] = None):
+    def start_selenium(self, flags: dict[str, str] | None = None):
         """Start Selenium"""
         # required to write updates to records so the frontend and backend is synced
-        if env := getattr(self, "env"):
-            if flush_all := getattr(env, "flush_all"):
-                flush_all()  # odoo 16, flush() is deprecated
-            else:
-                env["base"].flush()
+        try:
+            self.env.flush_all()  # odoo 16, flush() is deprecated
+        except AttributeError:
+            try:
+                self.env["base"].flush()
+            except (AttributeError, KeyError):
+                _logger.warning(
+                    "Failed to flush, changes may not be reflected on the website"
+                )
 
         if flags is not None:
             self._chrome_flags.update(flags)
 
-        if grid_url := environ.get("SELENIUM_GRID_URL", False):
+        grid_url = environ.get("SELENIUM_GRID_URL", False)
+        if grid_url:
             self.driver = Remote(command_executor=grid_url, options=ChromeOptions())
         else:
             setrlimit(RLIMIT_AS, (16**9, 16**9))
@@ -78,6 +87,11 @@ class SeleniumMixin:
     def stop_selenium(self):
         """Stop Selenium"""
         # required to prevent 'cursor already closed' errors on teardown
-        if callable(wait_for_requests := getattr(self, "_wait_remaining_requests")):
-            wait_for_requests()
+        try:
+            self._wait_remaining_requests()
+        except AttributeError:
+            _logger.warning(
+                "Failed to call _wait_remaining_requests, is this an HttpCase?"
+            )
+
         self.driver.quit()

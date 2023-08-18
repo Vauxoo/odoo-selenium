@@ -1,9 +1,12 @@
-name: chrome-osut
+name: chrome-odoosel
 services:
   odoo:
+    image: vauxoo/odoo-selenium:${ODOO_VERSION-16}
     build:
       context: ..
       dockerfile: .docker/Dockerfile
+      args:
+        ODOO_VERSION: ${ODOO_VERSION-16}
     depends_on:
       - db
     command: ["odoo", "-d", "selenium", "-i", "test_selenium", "--test-tags", "/test_selenium", "--workers=0", "--stop-after-init"]

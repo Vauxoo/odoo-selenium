@@ -23,7 +23,7 @@ class TestSelenium(SeleniumMixin, HttpCase):
         self.stop_selenium()
 
     def test_login_page(self):
-        self.driver.get(f"{self.odoo_url}/web/login")
+        self.navigate(f"{self.odoo_url}/web/login")
         email_input = self.driver.find_element(By.ID, "login")
 
         self.assertEqual("Email", email_input.get_attribute("placeholder"))

@@ -1,4 +1,4 @@
-name: grid-osut
+name: grid-odoo-selenium
 services:
   odoo:
     image: odoo:16

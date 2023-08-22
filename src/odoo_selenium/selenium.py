@@ -62,13 +62,13 @@ class SeleniumMixin:
             except (AttributeError, KeyError):
                 _logger.warning("Failed to flush, changes may not be reflected on the website")
 
-        if flags is not None:
-            self._chrome_flags.update(flags)
-
         grid_url = environ.get("SELENIUM_GRID_URL", False)
         if grid_url:
             self.driver = Remote(command_executor=grid_url, options=ChromeOptions())
         else:
+            if flags is not None:
+                self._chrome_flags.update(flags)
+
             setrlimit(RLIMIT_AS, (16**9, 16**9))
 
             options = Options()

@@ -13,6 +13,11 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from odoo_selenium.expectations import owl_has_loaded
 
+try:
+    from odoo.tools import config
+except ImportError:
+    config = {"http_port": 8069}
+
 _logger = logging.getLogger(__name__)
 
 
@@ -22,6 +27,7 @@ class SeleniumMixin:
     Being a Mixin, this class needs to be first on the inheritance chain.
     """
 
+    odoo_url = environ.get("SELENIUM_BASE_URL", f"http://127.0.0.1:{config['http_port']}")
     _default_chrome_flags = {
         "--headless": "",
         "--no-default-browser-check": "",

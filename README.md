@@ -1,6 +1,5 @@
-# osut
-**O**doo **S**elenium **U**nittest **T**ools provides utilities that make it easy to quickly write and develop
-Odoo tests that use Selenium.
+# odoo-selenium
+This package provides utilities that make it easy to quickly write and develop Odoo tests using Selenium.
 
 ## Usage
 To boostrap Selenium you can use `SeleniumMixin`, it contains the following two methods:
@@ -16,7 +15,7 @@ from selenium.webdriver.common.by import By
 
 from odoo.tests import HttpCase, tagged
 
-from osut.selenium import SeleniumMixin
+from odoo_selenium import SeleniumMixin
 
 
 @tagged("-at_install", "post_install")

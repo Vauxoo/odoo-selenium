@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from odoo.tools import config
 from odoo.tests import HttpCase, tagged
 
-from osut.selenium import SeleniumMixin
+from odoo_selenium import SeleniumMixin
 
 
 @tagged("-at_install", "post_install")

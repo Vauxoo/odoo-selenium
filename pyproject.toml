@@ -1,10 +1,21 @@
 [project]
-name = "osut"
+name = "odoo-selenium"
+readme = "README.md"
 requires-python = ">=3.7.0"
+license = {file = "LICENSE"}
 dynamic = ["version", "description"]
+authors = [{name = "Vauxoo", email = "info@vauxoo.com"}]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
 dependencies = [
     "selenium >= 4.11"
 ]
+
+[project.urls]
+Source = "https://github.com/vauxoo/odoo-selenium"
 
 [build-system]
 requires = ["flit_core >=3.9,<4"]

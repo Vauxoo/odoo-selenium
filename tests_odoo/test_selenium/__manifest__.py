@@ -7,7 +7,7 @@
     "license": "LGPL-3",
     "depends": ["base"],
     "external_dependencies": {
-        "python": ["osut"],
+        "python": ["odoo_selenium"],
     },
     "demo": [],
     "data": [],

@@ -1,4 +1,4 @@
-name: chrome-odoosel
+name: odoo-selenium
 services:
   odoo:
     image: vauxoo/odoo-selenium:${ODOO_VERSION-16}

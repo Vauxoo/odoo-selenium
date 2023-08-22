@@ -2,7 +2,7 @@ ARG ODOO_VERSION
 FROM odoo:$ODOO_VERSION
 
 ARG PROJECT_ROOT_PATH=.
-ARG PROJECT_PKG_PATH=/home/odoo/osut
+ARG PROJECT_PKG_PATH=/home/odoo/odoo-selenium
 ARG PROJECT_ADDONS_PATH=/mnt/extra-addons
 ARG CHROME_DEB_PATH=/var/cache/apt/archives/google-chrome.deb
 

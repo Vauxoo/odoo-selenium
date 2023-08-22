@@ -11,6 +11,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 
+from odoo_selenium.expectations import owl_has_loaded
+
 _logger = logging.getLogger(__name__)
 
 
@@ -58,9 +60,7 @@ class SeleniumMixin:
             try:
                 self.env["base"].flush()
             except (AttributeError, KeyError):
-                _logger.warning(
-                    "Failed to flush, changes may not be reflected on the website"
-                )
+                _logger.warning("Failed to flush, changes may not be reflected on the website")
 
         if flags is not None:
             self._chrome_flags.update(flags)
@@ -90,8 +90,15 @@ class SeleniumMixin:
         try:
             self._wait_remaining_requests()
         except AttributeError:
-            _logger.warning(
-                "Failed to call _wait_remaining_requests, is this an HttpCase?"
-            )
+            _logger.warning("Failed to call _wait_remaining_requests, is this an HttpCase?")
 
         self.driver.quit()
+
+    def navigate(self, url: str):
+        """Navigates to the specified Odoo website and waits for the website components to load.
+
+        :param str url: URL to navigate to. It MUST be an Odoo website, otherwise it is likely to wait indefinitely
+        for Odoo specific components (that are not there) to load.
+        """
+        self.driver.get(url)
+        self.wait.until(owl_has_loaded)

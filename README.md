@@ -31,7 +31,7 @@ class TestSelenium(SeleniumMixin, HttpCase):
         self.stop_selenium()
 
     def test_login_page(self):
-        self.navigate(f"{self.base_url()}/web/login")  # base_url() does not exist in 14.0
+        self.navigate(f"{self.odoo_url}/web/login")
         email_input = self.driver.find_element(By.ID, "login")
 
         self.assertEqual("Email", email_input.get_attribute("placeholder"))

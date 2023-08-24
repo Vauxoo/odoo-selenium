@@ -1,5 +1,5 @@
 [project]
-name = "odoo-selenium"
+name = "odoo-selenium-httpcase"
 readme = "README.md"
 requires-python = ">=3.7.0"
 license = {file = "LICENSE"}
@@ -26,3 +26,6 @@ max-line-length=119
 [build-system]
 requires = ["flit_core >=3.9,<4"]
 build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "odoo_selenium"

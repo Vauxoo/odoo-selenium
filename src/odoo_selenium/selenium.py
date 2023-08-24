@@ -92,13 +92,12 @@ class SeleniumMixin:
 
     def stop_selenium(self):
         """Stop Selenium"""
+        self.driver.quit()
         # required to prevent 'cursor already closed' errors on teardown
         try:
             self._wait_remaining_requests()
         except AttributeError:
             _logger.warning("Failed to call _wait_remaining_requests, is this an HttpCase?")
-
-        self.driver.quit()
 
     def navigate(self, url: str):
         """Navigates to the specified Odoo website and waits for the website components to load.

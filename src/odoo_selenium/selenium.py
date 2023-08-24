@@ -55,6 +55,7 @@ class SeleniumMixin:
         super().__init__(*args, **kwargs)
         self.driver: WebDriver | None = None
         self.wait: WebDriverWait | None = None
+        self.selenium_timeout: float = environ.get("SELENIUM_TIMEOUT", 300.0)
         self._chrome_flags: dict[str, str] = self._default_chrome_flags.copy()
 
     def start_selenium(self, flags: dict[str, str] | None = None):
@@ -86,9 +87,8 @@ class SeleniumMixin:
                 options=options,
             )
 
-        timeout = environ.get("SELENIUM_TIMEOUT", 300)
-        self.wait = WebDriverWait(self.driver, timeout=timeout, poll_frequency=1)
-        self.driver.implicitly_wait(timeout)
+        self.wait = WebDriverWait(self.driver, timeout=self.selenium_timeout, poll_frequency=1)
+        self.driver.implicitly_wait(self.selenium_timeout)
 
     def stop_selenium(self):
         """Stop Selenium"""

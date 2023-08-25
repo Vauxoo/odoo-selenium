@@ -37,6 +37,11 @@ jobs:
         run: docker compose -f .docker/chrome-compose.yaml pull db
       - name: Run embedded Selenium tests
         run: ODOO_VERSION=${{ matrix.odoo }} docker compose -f .docker/chrome-compose.yaml up --abort-on-container-exit --force-recreate
+      - name: Obtain coverage
+        run: docker cp odoo-selenium-odoo-1:/home/odoo/odoo-selenium/coverage.xml ./coverage.xml
+      - uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   build:
     runs-on: ubuntu-latest
     steps:

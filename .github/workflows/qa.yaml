@@ -19,10 +19,10 @@ jobs:
             ~/.cache/pre-commit
             ~/.cache/pip
           key: ${{runner.os}}-pre-commit
-      - name: Install pre-commit
-        run: pip install --progress-bar=off --upgrade pre-commit
-      - name: Run pre-commit
-        run: pre-commit run --all-files
+      - name: Install dependencies
+        run: pip install --progress-bar=off --upgrade tox
+      - name: Run lint
+        run: tox -e lint -v
   tests:
     runs-on: ubuntu-latest
     strategy:
@@ -46,7 +46,7 @@ jobs:
           path: |
             ~/.cache/pip
           key: ${{runner.os}}-pip
-      - name: Build package
+      - name: Install dependencies
         run: |
           pip install --progress-bar=off --upgrade tox twine
           tox -e build -v

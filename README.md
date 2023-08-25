@@ -1,3 +1,14 @@
+[//]: # (start-badges)
+
+[![Build Status](https://github.com/Vauxoo/odoo-selenium/actions/workflows/qa.yaml/badge.svg?branch=main)](https://github.com/Vauxoo/odoo-selenium/actions/workflows/qa.yaml?query=branch%3Amain)
+[![version](https://img.shields.io/pypi/v/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
+[![wheel](https://img.shields.io/pypi/wheel/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
+[![supported-versions](https://img.shields.io/pypi/pyversions/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
+[![commits-since](https://img.shields.io/github/commits-since/Vauxoo/odoo-selenium/v0.1.1.svg)](https://github.com/Vauxoo/odoo-selenium/compare/v0.1.1...main)
+
+[//]: # (end-badges)
+
+
 # odoo-selenium
 This package provides utilities that make it easy to quickly write and develop Odoo tests using Selenium.
 

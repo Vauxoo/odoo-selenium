@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import logging
+import unittest
 from os import environ
 from resource import RLIMIT_AS, setrlimit
+from urllib.parse import urljoin
 
 from selenium.webdriver import Chrome, ChromeOptions, Remote
 from selenium.webdriver.chrome.options import Options
@@ -18,14 +20,16 @@ try:
 except ImportError:
     config = {"http_port": 8069}
 
+try:
+    from odoo.tests.common import HttpCase
+except ImportError:
+    HttpCase = unittest.TestCase  # Just for code IDE indexing
+
 _logger = logging.getLogger(__name__)
 
 
-class SeleniumMixin:
-    """Provides startup code to correctly initialize Selenium.
-    Test classes that wish to use it must inherit this class and explicitly call start/stop methods.
-    Being a Mixin, this class needs to be first on the inheritance chain.
-    """
+class SeleniumCase(HttpCase):
+    """Provides startup code to correctly initialize Selenium."""
 
     odoo_url = environ.get("SELENIUM_BASE_URL", f"http://127.0.0.1:{config['http_port']}")
     _default_chrome_flags = {
@@ -56,9 +60,17 @@ class SeleniumMixin:
         self.driver: WebDriver | None = None
         self.wait: WebDriverWait | None = None
         self.selenium_timeout: float = environ.get("SELENIUM_TIMEOUT", 300.0)
-        self._chrome_flags: dict[str, str] = self._default_chrome_flags.copy()
+        self.chrome_flags: dict[str, str] = self._default_chrome_flags.copy()
 
-    def start_selenium(self, flags: dict[str, str] | None = None):
+    def setUp(self) -> None:
+        super().setUp()
+        self.start_selenium()
+
+    def tearDown(self) -> None:
+        super().tearDown()
+        self.stop_selenium()
+
+    def start_selenium(self):
         """Start Selenium"""
         # required to write updates to records so the frontend and backend is synced
         try:
@@ -73,13 +85,10 @@ class SeleniumMixin:
         if grid_url:
             self.driver = Remote(command_executor=grid_url, options=ChromeOptions())
         else:
-            if flags is not None:
-                self._chrome_flags.update(flags)
-
             setrlimit(RLIMIT_AS, (16**9, 16**9))
 
             options = Options()
-            for key, value in self._chrome_flags.items():
+            for key, value in self.chrome_flags.items():
                 options.add_argument(f"{key}={value}" if value else key)
 
             self.driver = Chrome(
@@ -102,8 +111,7 @@ class SeleniumMixin:
     def navigate(self, url: str):
         """Navigates to the specified Odoo website and waits for the website components to load.
 
-        :param str url: URL to navigate to. It MUST be an Odoo website, otherwise it is likely to wait indefinitely
-        for Odoo specific components (that are not there) to load.
+        :param str url: Relative (to Odoo's base URL) path to navigate to.
         """
-        self.driver.get(url)
+        self.driver.get(urljoin(self.odoo_url, url))
         self.wait.until(owl_has_loaded)

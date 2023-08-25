@@ -4,7 +4,7 @@
 [![version](https://img.shields.io/pypi/v/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
 [![wheel](https://img.shields.io/pypi/wheel/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
 [![supported-versions](https://img.shields.io/pypi/pyversions/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
-[![commits-since](https://img.shields.io/github/commits-since/Vauxoo/odoo-selenium/v0.1.2.svg)](https://github.com/Vauxoo/odoo-selenium/compare/v0.1.2...main)
+[![commits-since](https://img.shields.io/github/commits-since/Vauxoo/odoo-selenium/v0.1.3.svg)](https://github.com/Vauxoo/odoo-selenium/compare/v0.1.3...main)
 
 [//]: # (end-badges)
 

@@ -7,7 +7,6 @@ from odoo_selenium import SeleniumMixin
 
 @tagged("-at_install", "post_install")
 class TestSelenium(SeleniumMixin, HttpCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

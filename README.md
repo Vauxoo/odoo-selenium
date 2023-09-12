@@ -1,6 +1,7 @@
 [//]: # (start-badges)
 
 [![Build Status](https://github.com/Vauxoo/odoo-selenium/actions/workflows/qa.yaml/badge.svg?branch=main)](https://github.com/Vauxoo/odoo-selenium/actions/workflows/qa.yaml?query=branch%3Amain)
+[![codecov](https://codecov.io/github/Vauxoo/odoo-selenium/graph/badge.svg?token=2EUGA99MO4)](https://codecov.io/github/Vauxoo/odoo-selenium)
 [![version](https://img.shields.io/pypi/v/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
 [![wheel](https://img.shields.io/pypi/wheel/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
 [![supported-versions](https://img.shields.io/pypi/pyversions/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)

@@ -11,11 +11,22 @@ USER root
 RUN apt update;  \
     curl -o  ${CHROME_DEB_PATH} https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb; \
     apt install -y ${CHROME_DEB_PATH}; \
-    python3 -m pip install --upgrade pip
+    python3 -m pip install --upgrade pip coverage
 
+COPY --chown=odoo:odoo ${PROJECT_ROOT_PATH}/.docker/odoo.conf /etc/odoo/odoo.conf
 COPY --chown=odoo:odoo ${PROJECT_ROOT_PATH} ${PROJECT_PKG_PATH}
 COPY --chown=odoo:odoo ${PROJECT_ROOT_PATH}/tests_odoo ${PROJECT_ADDONS_PATH}
 
-RUN python3 -m pip install ${PROJECT_PKG_PATH}
+RUN python3 -m pip install -e ${PROJECT_PKG_PATH}
+
+COPY $PROJECT_ROOT_PATH/.docker/entrypoint.sh /
+
 
 USER odoo
+WORKDIR ${PROJECT_PKG_PATH}
+
+ENV COVERAGE_HOME=${PROJECT_PKG_PATH}
+ENV COVERAGE_RCFILE=${PROJECT_PKG_PATH}/.coveragerc
+ENV COVERAGE_FILE=${PROJECT_PKG_PATH}/.coverage
+
+ENTRYPOINT ["/entrypoint.sh"]

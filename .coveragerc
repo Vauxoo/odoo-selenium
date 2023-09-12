@@ -1,0 +1,19 @@
+[run]
+relative_files = True
+source = ${COVERAGE_HOME}
+context = ${COVERAGE_CONTEXT}
+dynamic_context = ${COVERAGE_DYNAMIC_CONTEXT-test_function}
+
+[report]
+include = */odoo_selenium/*
+omit =${EXCLUDE_COVERAGE}
+exclude_lines =
+    pragma: no cover
+    raise NotImplementedError
+    except ImportError:
+
+fail_under = ${COVERAGE_MIN-0}
+precision = ${COVERAGE_PRECISION-0}
+
+[html]
+show_contexts=True

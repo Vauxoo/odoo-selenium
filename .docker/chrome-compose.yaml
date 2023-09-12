@@ -8,10 +8,15 @@ services:
       args:
         ODOO_VERSION: ${ODOO_VERSION-16}
     depends_on:
-      - db
-    command: ["odoo", "-d", "selenium", "-i", "test_selenium", "--test-tags", "/test_selenium", "--workers=0", "--stop-after-init"]
+      db:
+        condition: service_healthy
   db:
     image: postgres:15
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
+      interval: 1s
+      timeout: 30s
+      retries: 30

@@ -1,5 +1,5 @@
 [project]
-name = "odoo-selenium-httpcase"
+name = "odoo-selenium"
 readme = "README.md"
 requires-python = ">=3.7.0"
 license = {file = "LICENSE"}

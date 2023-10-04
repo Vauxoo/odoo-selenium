@@ -1,3 +1,5 @@
+[![Vauxoo Logo](https://www.vauxoo.com/logo.png)](https://www.vauxoo.com)
+
 [//]: # (start-badges)
 
 [![Build Status](https://github.com/Vauxoo/odoo-selenium/actions/workflows/qa.yaml/badge.svg?branch=main)](https://github.com/Vauxoo/odoo-selenium/actions/workflows/qa.yaml?query=branch%3Amain)
@@ -83,3 +85,11 @@ docker run -it --rm --entrypoint=/bin/bash vauxoo/odoo-selenium:15
 
 **Note: If your tests fail, and you see old code being referenced, you are using an old image! That's why
 `--force-recreate` is used.**
+
+## Maintainer
+This project is maintained by [Vauxoo](https://www.vauxoo.com).
+
+A Latin American company that provides training, coaching,
+development and implementation of enterprise management
+systems and bases its entire operation strategy in the use
+of Open Source Software and its main product Odoo.

@@ -2,9 +2,9 @@
 
 [![Build Status](https://github.com/Vauxoo/odoo-selenium/actions/workflows/qa.yaml/badge.svg?branch=main)](https://github.com/Vauxoo/odoo-selenium/actions/workflows/qa.yaml?query=branch%3Amain)
 [![codecov](https://codecov.io/github/Vauxoo/odoo-selenium/graph/badge.svg)](https://codecov.io/github/Vauxoo/odoo-selenium)
-[![version](https://img.shields.io/pypi/v/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
-[![wheel](https://img.shields.io/pypi/wheel/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
-[![supported-versions](https://img.shields.io/pypi/pyversions/odoo-selenium-httpcase.svg)](https://pypi.org/project/odoo-selenium-httpcase)
+[![version](https://img.shields.io/pypi/v/odoo-selenium.svg)](https://pypi.org/project/odoo-selenium)
+[![wheel](https://img.shields.io/pypi/wheel/odoo-selenium.svg)](https://pypi.org/project/odoo-selenium)
+[![supported-versions](https://img.shields.io/pypi/pyversions/odoo-selenium.svg)](https://pypi.org/project/odoo-selenium)
 [![commits-since](https://img.shields.io/github/commits-since/Vauxoo/odoo-selenium/v0.1.3.svg)](https://github.com/Vauxoo/odoo-selenium/compare/v0.1.3...main)
 
 [//]: # (end-badges)

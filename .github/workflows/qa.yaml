@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        odoo: [14, 15, 16]
+        odoo: [14, 15, 16, 17]
     steps:
       - uses: actions/checkout@v3
       - name: Build container

@@ -4,7 +4,7 @@ from __future__ import annotations
 import logging
 import unittest
 from os import environ
-from resource import RLIMIT_AS, setrlimit
+from resource import RLIM_INFINITY, RLIMIT_AS, setrlimit
 from urllib.parse import urljoin
 
 from selenium.webdriver import Chrome, ChromeOptions, Remote
@@ -85,7 +85,7 @@ class SeleniumCase(HttpCase):
         if grid_url:
             self.driver = Remote(command_executor=grid_url, options=ChromeOptions())
         else:
-            setrlimit(RLIMIT_AS, (16**9, 16**9))
+            setrlimit(RLIMIT_AS, (RLIM_INFINITY, RLIM_INFINITY))
 
             options = Options()
             for key, value in self.chrome_flags.items():
